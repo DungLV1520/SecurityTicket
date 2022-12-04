@@ -1,0 +1,99 @@
+<div class="row h-100 overflow-auto" style="background-color: #f4f7fe">
+  <div class="col-12 text-center mb-auto px-0">
+    <header class="header">
+      <div class="row" style="margin: 0 10px">
+        <div class="col-auto"></div>
+        <div class="col">
+          <div class="logo-small">
+            <h5>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                style="margin-top: -4px"
+              >
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M2.1508 14.6667L2.16247 14.6691C3.66318 15.5923 5.87369 16 8.54013 16C13.6386 16 16.06 13.1326 15.9989 10.2963L15.9988 10.2965C15.9915 9.9837 15.9544 9.67216 15.8881 9.36558C15.2134 6.26284 13.2593 4.74436 13.2593 4.74436L12.5846 0L9.01243 2.78378C9.01243 2.78378 1.59703 1.64521 0.11395 9.48867C-0.312515 11.9558 0.478038 13.6332 2.1508 14.6667ZM9.48517 5.4169C9.67199 5.32541 9.83074 5.24766 9.95964 5.21389C13.1957 4.3704 14.4547 7.40864 13.6005 9.47435C12.7463 11.5401 9.9596 10.865 9.46566 10.5281C8.97172 10.1912 7.80313 9.72764 6.90437 10.3178C6.0056 10.908 2.14062 11.6679 2.14062 8.5042C2.14062 5.34053 4.83694 4.6667 6.49952 5.55201C7.79771 6.24327 8.8196 5.74284 9.48517 5.4169Z"
+                  fill="#ED1C24"
+                />
+                <path
+                  d="M4.59385 8.90929C5.06421 8.90929 5.44551 8.3899 5.44551 7.7492C5.44551 7.1085 5.06421 6.58911 4.59385 6.58911C4.12349 6.58911 3.74219 7.1085 3.74219 7.7492C3.74219 8.3899 4.12349 8.90929 4.59385 8.90929Z"
+                  fill="#ED1C24"
+                />
+                <path
+                  d="M11.295 8.90929C11.7654 8.90929 12.1467 8.3899 12.1467 7.7492C12.1467 7.1085 11.7654 6.58911 11.295 6.58911C10.8247 6.58911 10.4434 7.1085 10.4434 7.7492C10.4434 8.3899 10.8247 8.90929 11.295 8.90929Z"
+                  fill="#ED1C24"
+                />
+              </svg>
+              TICKET
+            </h5>
+          </div>
+        </div>
+        <div class="col-auto"></div>
+      </div>
+    </header>
+  </div>
+  <div
+    class="col-10 col-md-6 col-lg-5 col-xl-3 mx-auto align-self-center text-center py-4"
+  >
+    <h1 class="mb-4 text-color-theme">Sign in</h1>
+    <form class="needs-validation" novalidate>
+      <div class="form-group form-floating mb-3 is-valid">
+        <input
+          type="text"
+          class="form-control"
+          value="maxartkiller"
+          id="email"
+          placeholder="Username"
+        />
+        <label class="form-control-label" for="email">Email</label>
+      </div>
+
+      <div class="form-group form-floating is-invalid mb-3">
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          placeholder="Password"
+        />
+        <label class="form-control-label" for="password">Password</label>
+        <button
+          type="button"
+          class="text-danger tooltip-btn"
+          data-bs-toggle="tooltip"
+          data-bs-placement="left"
+          title="Enter valid Password"
+          id="passworderror"
+        >
+          <i class="bi bi-info-circle"></i>
+        </button>
+      </div>
+      <p class="mb-3 text-center">
+        <a routerLink="/account/forgot-password"> Forgot your password? </a>
+      </p>
+
+      <button
+        routerLink="/home"
+        type="button"
+        class="btn btn-lg btn-default w-100 mb-4 shadow"
+      >
+        Sign in
+      </button>
+    </form>
+    <p class="mb-2 text-muted">Don't have account?</p>
+    <a routerLink="/account/signup" target="_self" class="">
+      Sign up <i class="bi bi-arrow-right"></i>
+    </a>
+  </div>
+  <div class="col-12 text-center mt-auto">
+    <div class="row justify-content-center footer-info">
+      <div class="col-auto">
+        <p class=" ">© 2022 LD. Crafted by LD</p>
+      </div>
+    </div>
+  </div>
+</div>

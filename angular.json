@@ -19,20 +19,12 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "src/assets",
-                "output": "assets"
-              },
-              {
-                "glob": "**/*.svg",
-                "input": "node_modules/ionicons/dist/ionicons/svg",
-                "output": "./svg"
-              }
-            ],
-            "styles": ["src/theme/variables.scss", "src/global.scss"],
-            "scripts": []
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/assets/css/style.css", "src/styles.scss"],
+            "scripts": [
+              "src/assets/js/popper.min.js",
+              "src/assets/vendor/bootstrap-5/js/bootstrap.bundle.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -99,20 +91,12 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "src/assets",
-                "output": "assets"
-              },
-              {
-                "glob": "**/*.svg",
-                "input": "node_modules/ionicons/dist/ionicons/svg",
-                "output": "./svg"
-              }
-            ],
-            "styles": ["src/theme/variables.scss", "src/global.scss"],
-            "scripts": []
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/assets/css/style.css", "src/styles.scss"],
+            "scripts": [
+              "src/assets/js/popper.min.js",
+              "src/assets/vendor/bootstrap-5/js/bootstrap.bundle.min.js"
+            ]
           },
           "configurations": {
             "ci": {
@@ -124,19 +108,15 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
-            ]
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
         }
       }
     }
   },
   "cli": {
-    "schematicCollections": [
-      "@ionic/angular-toolkit"
-    ]
+    "schematicCollections": ["@ionic/angular-toolkit"],
+    "analytics": "c5ad16ef-d50d-4795-9fce-cc0d49ab937f"
   },
   "schematics": {
     "@ionic/angular-toolkit:component": {
