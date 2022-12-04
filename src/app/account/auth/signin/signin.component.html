@@ -7,12 +7,12 @@
           <div class="logo-small">
             <h5>
               <svg
-                width="16"
-                height="16"
+                width="24"
+                height="24"
                 viewBox="0 0 16 16"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                style="margin-top: -4px"
+                style="margin-top: -6px"
               >
                 <path
                   fill-rule="evenodd"
@@ -41,21 +41,42 @@
     class="col-10 col-md-6 col-lg-5 col-xl-3 mx-auto align-self-center text-center py-4"
   >
     <h1 class="mb-4 text-color-theme">Sign in</h1>
-    <form class="needs-validation" novalidate>
-      <div class="form-group form-floating mb-3 is-valid">
+    <div class="alert alert-danger" role="alert" *ngIf="check">
+      {{ error }}
+    </div>
+    <form
+      class="needs-validation"
+      novalidate
+      [formGroup]="loginForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <div class="form-group form-floating mb-2 is-valid">
         <input
-          type="text"
+          type="email"
+          formControlName="email"
           class="form-control"
           value="maxartkiller"
           id="email"
-          placeholder="Username"
+          placeholder="email"
         />
         <label class="form-control-label" for="email">Email</label>
       </div>
+      <div
+        *ngIf="submitted && loginForm.controls['email'].errors"
+        class="invalid-feed mb-2"
+      >
+        <div *ngIf="loginForm.controls['email'].errors['required']">
+          Email is required
+        </div>
+        <div *ngIf="loginForm.controls['email'].errors['email']">
+          Email must be a valid email address
+        </div>
+      </div>
 
-      <div class="form-group form-floating is-invalid mb-3">
+      <div class="form-group form-floating is-invalid mb-2">
         <input
           type="password"
+          formControlName="password"
           class="form-control"
           id="password"
           placeholder="Password"
@@ -72,15 +93,21 @@
           <i class="bi bi-info-circle"></i>
         </button>
       </div>
+
+      <div
+        *ngIf="submitted && loginForm.controls['password'].errors"
+        class="invalid-feed"
+      >
+        <span *ngIf="loginForm.controls['password'].errors['required']"
+          >Password is required</span
+        >
+      </div>
+
       <p class="mb-3 text-center">
         <a routerLink="/account/forgot-password"> Forgot your password? </a>
       </p>
 
-      <button
-        routerLink="/home"
-        type="button"
-        class="btn btn-lg btn-default w-100 mb-4 shadow"
-      >
+      <button type="submit" class="btn btn-lg btn-default w-100 mb-4 shadow">
         Sign in
       </button>
     </form>
@@ -92,7 +119,7 @@
   <div class="col-12 text-center mt-auto">
     <div class="row justify-content-center footer-info">
       <div class="col-auto">
-        <p class=" ">© 2022 LD. Crafted by LD</p>
+        <p>© 2022 LD. Crafted by LD</p>
       </div>
     </div>
   </div>

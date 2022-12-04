@@ -12,12 +12,12 @@
           </a>
         </div>
         <div class="col align-self-center">
-          <h5>
+          <h4>
             <svg
-              width="16"
-              height="16"
+              width="24"
+              height="24"
               viewBox="0 0 16 16"
-              style="margin-top: -4px"
+              style="margin-top: -6px"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -36,8 +36,8 @@
                 fill="#ED1C24"
               />
             </svg>
-            Sign up
-          </h5>
+            SIGN UP
+          </h4>
         </div>
         <div class="col-auto">
           <a class="btn btn-light btn-44 invisible"></a>
@@ -48,13 +48,18 @@
   <div
     class="col-10 col-md-6 col-lg-5 col-xl-3 mx-auto align-self-center text-center py-4"
   >
-    <div class="alert alert-danger" role="alert">
-      This is a danger alert—check it out!
+    <div class="alert alert-danger" role="alert" *ngIf="check">
+      {{ error }}
     </div>
-    <form class="was-validated">
-      <div class="form-floating is-valid mb-3">
+    <form
+      class="was-validated"
+      [formGroup]="signupForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <div class="form-floating is-valid mb-2">
         <input
           type="text"
+          formControlName="name"
           class="form-control"
           value="maxartkiller"
           placeholder="Username"
@@ -62,10 +67,19 @@
         />
         <label for="username">FullName</label>
       </div>
+      <div
+        *ngIf="submitted && signupForm.controls['name'].errors"
+        class="invalid-feed"
+      >
+        <div *ngIf="signupForm.controls['name'].errors['required']">
+          Username is required
+        </div>
+      </div>
 
-      <div class="form-floating is-valid mb-3">
+      <div class="form-floating is-valid mb-2">
         <input
-          type="text"
+          type="email"
+          formControlName="email"
           class="form-control"
           value="info@maxartkiller.com"
           placeholder="Email or Phone"
@@ -73,41 +87,40 @@
         />
         <label for="emailphone">Email</label>
       </div>
-      <div class="form-floating is-valid mb-3">
+      <div
+        *ngIf="submitted && signupForm.controls['email'].errors"
+        class="invalid-feed"
+      >
+        <div *ngIf="signupForm.controls['email'].errors['required']">
+          Email is required
+        </div>
+        <div *ngIf="signupForm.controls['email'].errors['email']">
+          Email must be a valid email address
+        </div>
+      </div>
+
+      <div class="form-floating is-valid mb-2">
         <input
           type="password"
+          formControlName="password"
           class="form-control"
-          value="asdasdasdsd"
           placeholder="Password"
+          autocomplete="new-password"
+          autocomplete="off"
           id="password"
         />
         <label for="password">Password</label>
       </div>
-      <div class="form-floating is-invalid mb-3">
-        <input
-          type="password"
-          class="form-control"
-          placeholder="Confirm Password"
-          id="confirmpassword"
-        />
-        <label for="confirmpassword">Confirm Password</label>
-        <button
-          type="button"
-          class="btn btn-link text-danger tooltip-btn"
-          data-bs-toggle="tooltip"
-          data-bs-placement="left"
-          title="Enter valid Password"
-          id="passworderror"
-        >
-          <i class="bi bi-info-circle"></i>
-        </button>
+      <div
+        *ngIf="submitted && signupForm.controls['password'].errors"
+        class="invalid-feed mb-2"
+      >
+        <div *ngIf="signupForm.controls['password'].errors['required']">
+          Password is required
+        </div>
       </div>
 
-      <button
-        routerLink="/account/login"
-        type="button"
-        class="btn btn-lg btn-danger w-100 mb-4 shadow text-white"
-      >
+      <button type="submit" class="btn btn-lg btn-default w-100 mb-4 shadow">
         Sign up
       </button>
     </form>

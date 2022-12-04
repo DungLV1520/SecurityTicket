@@ -10,6 +10,9 @@ import { HeadermenuComponent } from './partials/headermenu/headermenu.component'
 import { StaticfooterComponent } from './partials/staticfooter/staticfooter.component';
 import { HomeComponent } from './home/home.component';
 import { ApphomelayoutComponent } from './apphomelayout.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { TicketBookedComponent } from './ticket-booked/ticket-booked.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +21,8 @@ import { ApphomelayoutComponent } from './apphomelayout.component';
     HeadermenuComponent,
     StaticfooterComponent,
     ApphomelayoutComponent,
+    TicketBookedComponent,
+    ProfileComponent,
   ],
   imports: [
     CommonModule,
@@ -26,6 +31,7 @@ import { ApphomelayoutComponent } from './apphomelayout.component';
     ApphomelayoutRoutingModule,
     SwiperModule,
     NgCircleProgressModule.forRoot(),
+    NgSelectModule,
   ],
 })
 export class AppHomeLayoutModule {}

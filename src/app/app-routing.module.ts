@@ -4,6 +4,11 @@ import { AuthGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'menu/home',
+    pathMatch: 'full',
+  },
+  {
     path: 'account',
     loadChildren: () =>
       import('./account/account.module').then((m) => m.AccountModule),
@@ -14,13 +19,16 @@ const routes: Routes = [
       import('./apphomelayout/apphomelayout.module').then(
         (m) => m.AppHomeLayoutModule
       ),
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
   },
-  // {
-  //   path: '',
-  //   redirectTo: 'account',
-  //   pathMatch: 'full',
-  // },
+  {
+    path: 'ticket',
+    loadChildren: () =>
+      import('./appinnerlayout/appinnerlayout.module').then(
+        (m) => m.AppInnerLayoutModule
+      ),
+    // canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({
