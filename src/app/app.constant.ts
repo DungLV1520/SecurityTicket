@@ -1,1 +1,1 @@
-export const SERVER_URL = 'https://ttcs-booking.herokuapp.com/api/v1';
+export const SERVER_URL = 'http://localhost:3000/api/v1';

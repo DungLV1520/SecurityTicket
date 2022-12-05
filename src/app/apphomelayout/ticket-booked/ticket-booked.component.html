@@ -1,1 +1,88 @@
-<p>ticket-booked works!</p>
+<div class="text-center" *ngIf="ticketData?.length <= 0">
+  <h3>Not ticket</h3>
+</div>
+<div
+  class="card shadow-sm mb-4"
+  *ngFor="let item of ticketData; let index = index"
+>
+  <div class="card-header">
+    <h6 class="my-1">
+      <span>{{ index + 1 }}</span> - Company: {{ checkCompany(item.company) }}
+    </h6>
+  </div>
+  <div class="card-body bg-light">
+    <ul class="list-group list-group-flush w-100 bubble-sheet log-information">
+      <li class="list-group-item">
+        <div class="avatar avatar-15 border-danger rounded-circle"></div>
+        <p>
+          <span class="text-color-theme"
+            >Vehicle: {{ checkVehicle(item.vehicle) }}</span
+          >
+        </p>
+      </li>
+      <li class="list-group-item">
+        <div class="avatar avatar-15 border-danger rounded-circle"></div>
+        <p>
+          <span class="text-color-theme"
+            >From: {{ getProvince(item.trip.from) }}</span
+          >
+        </p>
+      </li>
+      <li class="list-group-item">
+        <span class="avatar avatar-15 border-warning rounded-circle"></span>
+        <p>
+          <span class="text-color-theme"
+            >To: {{ getProvince(item.trip.to) }}</span
+          >
+        </p>
+      </li>
+      <li class="list-group-item" *ngFor="let data of item.seat">
+        <span class="avatar avatar-15 border-primary rounded-circle"></span>
+        <p>
+          <span class="text-color-theme">Seat: {{ data.sku }}</span>
+          <br /><small class="text-muted badge badge-success"
+            >{{
+              data.type +
+                " - " +
+                (forMatNumber(
+                  data.type === "VIP" ? item.trip.price * 1.2 : item.trip.price
+                ) | currency : "" : "" : "1.0")
+            }}
+            VNĐ</small
+          >
+        </p>
+      </li>
+      <li class="list-group-item">
+        <span class="avatar avatar-15 border-dark rounded-circle"></span>
+        <p>
+          <span class="text-color-theme">
+            AmountPaid
+            {{ item.paidAt | date : "dd/MM/YYYY" }}</span
+          >
+          <br /><small class="text-muted badge badge-success"
+            >{{ item.amountPaid | currency : "" : "" : "1.0" }} VNĐ</small
+          >
+        </p>
+      </li>
+    </ul>
+  </div>
+  <div class="card-footer">
+    <div class="row">
+      <div class="col">
+        <h6 class="mb-0">
+          {{ item.trip.startTime | date : "dd/MM/YYYY hh:mm:ss" }}
+        </h6>
+        <p class="text-muted small">StartTime</p>
+      </div>
+      <div class="col-auto" style="margin-right: 11px">
+        <div class="card shadow-sm alert-danger">
+          <div class="row">
+            <div class="avatar avatar-40 bg-danger text-white rounded-circle">
+              <i class="bi bi-bar-chart"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

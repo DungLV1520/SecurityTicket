@@ -12597,7 +12597,7 @@ main {
 .card {
   background-color: var(--fimobile-card-color);
   color: var(--fimobile-card-text);
-  border-radius: var(--fimobile-rounded);
+  border-radius: none;
   border-color: var(--fimobile-theme-bordercolor);
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.07), inset 0 2px 0px #ffffff;
   -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.07), inset 0 2px 0px #ffffff;

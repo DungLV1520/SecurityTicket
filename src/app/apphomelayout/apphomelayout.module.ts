@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SwiperModule } from 'swiper/angular';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { ApphomelayoutRoutingModule } from './apphome-routing.module';
@@ -13,6 +13,7 @@ import { ApphomelayoutComponent } from './apphomelayout.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { TicketBookedComponent } from './ticket-booked/ticket-booked.component';
 import { ProfileComponent } from './profile/profile.component';
+import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -28,10 +29,12 @@ import { ProfileComponent } from './profile/profile.component';
     CommonModule,
     FormsModule,
     IonicModule,
+    ReactiveFormsModule,
     ApphomelayoutRoutingModule,
     SwiperModule,
     NgCircleProgressModule.forRoot(),
     NgSelectModule,
+    NgbDatepickerModule,
   ],
 })
 export class AppHomeLayoutModule {}

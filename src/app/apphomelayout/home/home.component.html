@@ -25,8 +25,8 @@
         >
           <div class="accordion-body text-muted">
             <div class="form-floating is-valid mb-2">
-              <select class="form-control" id="country">
-                <option *ngFor="let item of provinceData">
+              <select class="form-control" id="country" [(ngModel)]="from">
+                <option value="{{ item.id }}" *ngFor="let item of provinceData">
                   {{ item.name }}
                 </option>
               </select>
@@ -35,22 +35,45 @@
           </div>
           <div class="accordion-body text-muted">
             <div class="form-floating is-valid">
-              <select class="form-control" id="country">
-                <option *ngFor="let item of provinceData">
+              <select class="form-control" id="country" [(ngModel)]="to">
+                <option value="{{ item.id }}" *ngFor="let item of provinceData">
                   {{ item.name }}
                 </option>
               </select>
               <label for="country">To</label>
             </div>
           </div>
-          <div class="accordion-body text-muted" style="float: right">
+
+          <div class="accordion-body text-muted mb-4">
+            <div class="form-floating is-valid">
+              <input
+                class="form-control"
+                placeholder="yyyy-mm-dd"
+                name="dp"
+                ngbDatepicker
+                #d1="ngbDatepicker"
+                (click)="d1.toggle()"
+                autocomplete="off"
+                [(ngModel)]="startTime"
+                style="margin-bottom: 137px"
+              />
+              <label for="country">To</label>
+            </div>
+          </div>
+
+          <div class="accordion-body text-muted mt-4" style="float: right">
             <button
               type="button"
+              (click)="findTrip()"
               class="btn btn-md btn-default mb-2 mx-2 shadow"
             >
               Find
             </button>
-            <button type="button" class="btn btn-md btn-default mb-2 shadow">
+            <button
+              (click)="reset()"
+              type="button"
+              class="btn btn-md btn-default mb-2 shadow"
+            >
               Reset
             </button>
           </div>
@@ -58,66 +81,83 @@
       </div>
     </div>
 
-    <div class="card shadow-sm mb-4" *ngFor="let item of [1, 2, 3, 4]">
-      <div class="card-header">
-        <h6 class="my-1">Nhà xe Minh Quý HN-36</h6>
+    <ion-content style="height: 100vh">
+      <div class="text-center" *ngIf="tripData.length <= 0">
+        <h3>Not trip</h3>
       </div>
-      <div class="card-body bg-light">
-        <ul
-          class="list-group list-group-flush w-100 bubble-sheet log-information"
-        >
-          <li class="list-group-item">
-            <div class="avatar avatar-15 border-danger rounded-circle"></div>
-            <p>
-              <span class="text-color-theme">Thành phố Hà Nội</span>
-            </p>
-          </li>
-          <li class="list-group-item">
-            <span class="avatar avatar-15 border-warning rounded-circle"></span>
-            <p>
-              <span class="text-color-theme">Thành phố Thanh Hoá</span>
-            </p>
-          </li>
-          <li class="list-group-item">
-            <span class="avatar avatar-15 border-primary rounded-circle"></span>
-            <p>
-              <span class="text-color-theme">Số hành khách</span> <br /><small
-                class="text-muted badge badge-success"
-                >21</small
-              >
-            </p>
-          </li>
-          <li class="list-group-item">
-            <span class="avatar avatar-15 border-dark rounded-circle"></span>
-            <p>
-              <span class="text-color-theme"> Giá vé</span> <br /><small
-                class="text-muted badge badge-success"
-                >200.000đ</small
-              >
-            </p>
-          </li>
-        </ul>
-      </div>
-      <div class="card-footer">
-        <div class="row">
-          <div class="col">
-            <h6 class="mb-0">15/05/2022 4:00</h6>
-            <p class="text-muted small">Time</p>
-          </div>
-          <div class="col-auto" style="margin-right: 11px">
-            <div class="card shadow-sm alert-danger">
-              <div class="row">
-                <div
-                  routerLink="/ticket/detail/hfjhdjfh"
-                  class="avatar avatar-40 bg-danger text-white rounded-circle"
+      <div class="card shadow-sm mb-4" *ngFor="let item of tripData">
+        <div class="card-header">
+          <h6 class="my-1">{{ item?.company?.name }}</h6>
+        </div>
+        <div class="card-body bg-light">
+          <ul
+            class="list-group list-group-flush w-100 bubble-sheet log-information"
+          >
+            <li class="list-group-item">
+              <div class="avatar avatar-15 border-danger rounded-circle"></div>
+              <p>
+                <span class="text-color-theme">{{
+                  getProvince(item.from)
+                }}</span>
+              </p>
+            </li>
+            <li class="list-group-item">
+              <span
+                class="avatar avatar-15 border-warning rounded-circle"
+              ></span>
+              <p>
+                <span class="text-color-theme">{{ getProvince(item.to) }}</span>
+              </p>
+            </li>
+            <li class="list-group-item">
+              <span
+                class="avatar avatar-15 border-primary rounded-circle"
+              ></span>
+              <p>
+                <span class="text-color-theme">Số hành khách</span> <br /><small
+                  class="text-muted badge badge-success"
+                  >{{ item?.guestCapacity }}</small
                 >
-                  <i class="bi bi-bar-chart"></i>
+              </p>
+            </li>
+            <li class="list-group-item">
+              <span class="avatar avatar-15 border-dark rounded-circle"></span>
+              <p>
+                <span class="text-color-theme"> Giá vé</span> <br /><small
+                  class="text-muted badge badge-success"
+                  >{{ item.price | currency : "" : "" : "1.0" }}</small
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+        <div class="card-footer">
+          <div class="row">
+            <div class="col">
+              <h6 class="mb-0">
+                {{ item.startTime | date : "dd/MM/YYYY hh:mm:ss" }}
+              </h6>
+              <p class="text-muted small">Time</p>
+            </div>
+            <div class="col-auto" style="margin-right: 11px">
+              <div class="card shadow-sm alert-danger">
+                <div class="row">
+                  <div
+                    [routerLink]="['/ticket/detail/', item._id]"
+                    class="avatar avatar-40 bg-danger text-white rounded-circle"
+                  >
+                    <i class="bi bi-bar-chart"></i>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+
+      <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </ion-content>
   </div>
 </div>

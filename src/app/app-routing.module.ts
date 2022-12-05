@@ -19,7 +19,7 @@ const routes: Routes = [
       import('./apphomelayout/apphomelayout.module').then(
         (m) => m.AppHomeLayoutModule
       ),
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'ticket',
@@ -27,7 +27,7 @@ const routes: Routes = [
       import('./appinnerlayout/appinnerlayout.module').then(
         (m) => m.AppInnerLayoutModule
       ),
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
 ];
 

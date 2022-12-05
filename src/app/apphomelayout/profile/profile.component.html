@@ -1,3 +1,151 @@
-<p>
-  profile works!
-</p>
+<div
+  class="col-10 col-md-6 col-lg-5 col-xl-3 mx-auto align-self-center text-center py-4"
+>
+  <h2 class="mb-4 text-color-theme">Profile Setting</h2>
+  <div class="alert alert-danger" role="alert" *ngIf="checkName">
+    {{ errorName }}
+  </div>
+  <div class="alert alert-success" role="alert" *ngIf="checkNameSuccess">
+    Update success!!!
+  </div>
+  <form
+    class="needs-validation"
+    novalidate
+    [formGroup]="nameForm"
+    (ngSubmit)="updateProfile()"
+  >
+    <div class="form-group form-floating mb-2 is-valid">
+      <input
+        type="text"
+        formControlName="name"
+        class="form-control"
+        id="name"
+        placeholder="name"
+      />
+      <label class="form-control-label" for="name">Name</label>
+    </div>
+    <div
+      *ngIf="nameSubmit && nameForm.controls['name'].errors"
+      class="invalid-feed mb-2"
+    >
+      <div *ngIf="nameForm.controls['name'].errors['required']">
+        Name is required
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-lg btn-default w-100 mb-4 shadow">
+      Save
+    </button>
+  </form>
+</div>
+<div
+  class="col-10 col-md-6 col-lg-5 col-xl-3 mx-auto align-self-center text-center py-4"
+>
+  <h2 class="mb-4 text-color-theme">Change Password</h2>
+  <div class="alert alert-danger" role="alert" *ngIf="checkPass">
+    {{ errorPass }}
+  </div>
+
+  <div class="alert alert-success" role="alert" *ngIf="checkPassSuccess">
+    Update success!!!
+  </div>
+  <form
+    class="needs-validation"
+    novalidate
+    [formGroup]="passForm"
+    (ngSubmit)="updatePass()"
+  >
+    <div class="form-group form-floating is-invalid mb-2">
+      <input
+        type="password"
+        formControlName="oldPass"
+        class="form-control"
+        id="oldPass"
+        placeholder="oldPass"
+      />
+      <label class="form-control-label" for="oldPass"> Password</label>
+      <button
+        type="button"
+        class="text-danger tooltip-btn"
+        data-bs-toggle="tooltip"
+        data-bs-placement="left"
+        title="Enter valid oldPass"
+        id="oldPass"
+      >
+        <i class="bi bi-info-circle"></i>
+      </button>
+    </div>
+
+    <div
+      *ngIf="passSubmit && passForm.controls['oldPass'].errors"
+      class="invalid-feed"
+    >
+      <span *ngIf="passForm.controls['oldPass'].errors['required']"
+        >Password is required</span
+      >
+    </div>
+    <div class="form-group form-floating is-invalid mb-2">
+      <input
+        type="password"
+        formControlName="newPassword"
+        class="form-control"
+        id="newPassword"
+        placeholder="newPassword"
+      />
+      <label class="form-control-label" for="password"> New Password</label>
+      <button
+        type="button"
+        class="text-danger tooltip-btn"
+        data-bs-toggle="tooltip"
+        data-bs-placement="left"
+        title="Enter valid Password"
+        id="passworderror"
+      >
+        <i class="bi bi-info-circle"></i>
+      </button>
+    </div>
+
+    <div
+      *ngIf="passSubmit && passForm.controls['newPassword'].errors"
+      class="invalid-feed"
+    >
+      <span *ngIf="passForm.controls['newPassword'].errors['required']"
+        >New Password is required</span
+      >
+    </div>
+
+    <div class="form-group form-floating is-invalid mb-2">
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        placeholder="CFPassword"
+      />
+      <label class="form-control-label" for="password"> Confirm Password</label>
+      <button
+        type="button"
+        class="text-danger tooltip-btn"
+        data-bs-toggle="tooltip"
+        data-bs-placement="left"
+        title="Enter valid CFPassword"
+        id="cfPass"
+        formControlName="cfPass"
+      >
+        <i class="bi bi-info-circle"></i>
+      </button>
+    </div>
+
+    <div
+      *ngIf="passSubmit && passForm.controls['cfPass'].errors"
+      class="invalid-feed mb-4"
+    >
+      <span *ngIf="passForm.controls['cfPass'].errors['required']"
+        >CFPassword is required</span
+      >
+    </div>
+
+    <button type="submit" class="btn btn-lg btn-default w-100 mb-4 shadow">
+      Save
+    </button>
+  </form>
+</div>

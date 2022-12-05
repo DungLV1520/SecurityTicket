@@ -42,7 +42,8 @@ export class ForgetpasswordComponent implements OnInit {
           this.router.navigate(['/account/verify']);
         },
         (error) => {
-          this.router.navigate(['/account/verify']);
+          console.log(error);
+
           this.error = error ? error : '';
           if (this.error) {
             this.check = true;
