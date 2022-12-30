@@ -7,9 +7,10 @@ import SwiperCore, {
   A11y,
 } from 'swiper/core';
 import { TripService } from 'src/app/shared/service/trip.service';
-import { Trip } from 'src/app/shared/model/trip.model';
 import { InfiniteScrollCustomEvent } from '@ionic/angular';
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
+import * as moment from 'moment';
+import { LoaderService } from 'src/app/shared/service/loader.service';
 
 @Component({
   selector: 'app-home',
@@ -25,8 +26,12 @@ export class HomeComponent implements OnInit {
   to!: string;
   startTime!: any;
   count = 1;
+  loading = true;
 
-  constructor(private tripService: TripService) {}
+  constructor(
+    private tripService: TripService,
+    private loaderService: LoaderService
+  ) {}
 
   ngOnInit(): void {
     this.loadTrip(this.count);
@@ -40,13 +45,22 @@ export class HomeComponent implements OnInit {
   ngAfterInit() {}
 
   loadTrip(count: number) {
-    this.tripService.getTrip(count).subscribe((data: any) => {
-      this.tripData = [
-        ...this.tripData,
-        ...this.getUniqueListBy(data.trips, '_id'),
-      ];
-      this.totalPage = data.count;
-    });
+    this.loaderService.showLoading(true);
+
+    this.tripService.getTrip(count).subscribe(
+      (data: any) => {
+        this.tripData = [
+          ...this.tripData,
+          ...this.getUniqueListBy(data.trips, '_id'),
+        ];
+        this.loaderService.showLoading(false);
+
+        this.totalPage = data.count;
+      },
+      (err) => {
+        this.loaderService.showLoading(false);
+      }
+    );
   }
 
   getUniqueListBy(arr: any, key: any) {
@@ -57,18 +71,8 @@ export class HomeComponent implements OnInit {
     const obj = {
       from: this.from,
       to: this.to,
-      startTime: `${this.startTime.year}-${
-        Number(this.startTime.month) < 10
-          ? '0' + this.startTime.month
-          : this.startTime.month
-      }-${
-        Number(this.startTime.day) < 10
-          ? '0' + this.startTime.day
-          : this.startTime.day
-      }`,
+      startTime: moment(this.startTime).format('YYYY/MM/DD'),
     };
-
-    console.log(obj);
 
     this.tripService.searchTrip(obj).subscribe((data: any) => {
       this.tripData = data?.filterd;
@@ -100,7 +104,7 @@ export class HomeComponent implements OnInit {
     this.from = '';
     this.to = '';
     this.startTime = '';
-    this.loadTrip(this.count);
+    this.loadTrip(1);
   }
 
   onIonInfinite(ev: any) {

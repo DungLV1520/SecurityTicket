@@ -12,7 +12,10 @@ export class TripService {
   constructor(private http: HttpClient) {}
 
   getTrip(page?: number) {
-    return this.http.get(`${this.SERVER_URL}/trips/all?pageNumber=${page}`);
+    if (page) {
+      return this.http.get(`${this.SERVER_URL}/trips/all?pageNumber=${page}`);
+    }
+    return this.http.get(`${this.SERVER_URL}/trips/all`);
   }
 
   getTripId(id?: string) {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CompanyService } from 'src/app/shared/service/company.service';
+import { LoaderService } from 'src/app/shared/service/loader.service';
 import { TicketService } from 'src/app/shared/service/ticket.service';
 import { VehicleService } from 'src/app/shared/service/vehicle.service';
 import { province } from '../province';
@@ -18,7 +19,8 @@ export class TicketBookedComponent implements OnInit {
   constructor(
     private ticketService: TicketService,
     private vehicleService: VehicleService,
-    private companyService: CompanyService
+    private companyService: CompanyService,
+    private loaderService: LoaderService
   ) {}
 
   ngOnInit() {
@@ -44,10 +46,17 @@ export class TicketBookedComponent implements OnInit {
   }
 
   loadTicket(): void {
-    this.ticketService.getTicket().subscribe((data: any) => {
-      this.ticketData = data;
-      console.log(data);
-    });
+    this.loaderService.showLoading(true);
+
+    this.ticketService.getTicket().subscribe(
+      (data: any) => {
+        this.ticketData = data;
+        this.loaderService.showLoading(false);
+      },
+      () => {
+        this.loaderService.showLoading(false);
+      }
+    );
   }
 
   checkVehicle(id: string): string {

@@ -8,8 +8,8 @@ import { SERVER_URL } from 'src/app/app.constant';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   SERVER_URL = SERVER_URL;
-
   private currentUserSubject: BehaviorSubject<any>;
+
   public currentUser: Observable<User>;
 
   constructor(private http: HttpClient) {

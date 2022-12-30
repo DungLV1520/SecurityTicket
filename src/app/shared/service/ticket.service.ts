@@ -19,4 +19,8 @@ export class TicketService {
   searchTicket(vehicle: any) {
     return this.http.post(`${this.SERVER_URL}/tickets/search`, vehicle);
   }
+
+  createTicket(data: any) {
+    return this.http.post(`${this.SERVER_URL}/tickets`, data);
+  }
 }

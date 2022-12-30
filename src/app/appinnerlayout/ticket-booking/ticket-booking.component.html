@@ -1,19 +1,21 @@
 <div class="card shadow-sm mb-4">
   <div class="card-header">
-    <h6 class="my-1">Nhà xe Minh Quý HN-36</h6>
+    <h6 class="my-1">{{ getNameCompany(tripData?.company) }}</h6>
   </div>
   <div class="card-body bg-light">
     <ul class="list-group list-group-flush w-100 bubble-sheet log-information">
       <li class="list-group-item">
         <div class="avatar avatar-15 border-danger rounded-circle"></div>
         <p>
-          <span class="text-color-theme">Thành phố Hà Nội</span>
+          <span class="text-color-theme">{{
+            getProvince(tripData?.from)
+          }}</span>
         </p>
       </li>
       <li class="list-group-item">
         <span class="avatar avatar-15 border-warning rounded-circle"></span>
         <p>
-          <span class="text-color-theme">Thành phố Thanh Hoá</span>
+          <span class="text-color-theme">{{ getProvince(tripData?.to) }}</span>
         </p>
       </li>
       <li class="list-group-item">
@@ -21,7 +23,7 @@
         <p>
           <span class="text-color-theme">Số hành khách</span> <br /><small
             class="text-muted badge badge-success"
-            >21</small
+            >{{ tripData?.guestCapacity }}</small
           >
         </p>
       </li>
@@ -30,7 +32,7 @@
         <p>
           <span class="text-color-theme"> Giá vé</span> <br /><small
             class="text-muted badge badge-success"
-            >200.000đ</small
+            >{{ tripData?.price | currency : "" : "" : "1.0" }}</small
           >
         </p>
       </li>
@@ -39,7 +41,9 @@
   <div class="card-footer">
     <div class="row">
       <div class="col">
-        <h6 class="mb-0">15/05/2022 4:00</h6>
+        <h6 class="mb-0">
+          {{ tripData?.startTime | date : "dd/MM/YYYY hh:mm:ss" }}
+        </h6>
         <p class="text-muted small">Time</p>
       </div>
       <div class="col-auto" style="margin-right: 11px">
@@ -55,33 +59,28 @@
   </div>
 </div>
 
-<div class="col-12 col-md-6" *ngFor="let item of [1, 2, 3, 4]">
+<div class="col-12 col-md-6" *ngFor="let item of arraySeatFilter">
   <div class="card mb-3">
     <div class="card-body" style="margin-left: 11px">
       <div class="row">
         <div class="col align-self-center ps-0">
-          <p class="small mb-1 text-muted">TYPE</p>
-          <p>VIP</p>
+          <p class="small mb-1 text-color-theme">TYPE</p>
+          <p>{{ item.type === "VIP" ? "VIP" : "ECO" }}</p>
         </div>
         <div class="col align-self-center ps-0">
-          <p class="small mb-1 text-muted">NUMBER</p>
-          <p>G1</p>
+          <p class="small mb-1 text-color-theme">NUMBER</p>
+          <p>{{ item.sku }}</p>
         </div>
         <div class="col align-self-center ps-0">
-          <p class="small mb-1 text-muted">STATUS</p>
-          <p>Empty</p>
+          <p class="small mb-1 text-color-theme">STATUS</p>
+          <p>{{ item.status ? "Book" : "Empty" }}</p>
         </div>
         <div class="col-auto align-self-center text-end ps-0">
-          <p class="small mb-1 text-muted">PRICE</p>
-          <p>600.000</p>
-        </div>
-        <div class="col-auto align-self-center ps-0">
-          <button class="btn btn-default btn-44 shadow-sm">
-            <input
-              type="checkbox"
-              style="height: 23px; width: 24px; margin-top: 9px"
-            />
-          </button>
+          <p class="small mb-1 text-color-theme">PRICE</p>
+          {{
+            (item.type === "VIP" ? tripData.price * 1.2 : tripData.price)
+              | currency : "" : "" : "1.0"
+          }}
         </div>
       </div>
     </div>
@@ -98,13 +97,14 @@
     <div class="row">
       <div class="col-12">
         <h4 class="fw-normal mb-2">
-          150.540.000.000.000
+          {{ totalSeat | currency : "" : "" : "1.0" }}
           <span class="small text-muted">VND</span>
         </h4>
       </div>
     </div>
   </div>
 </div>
-<button type="button" class="btn btn-lg btn-default w-100 mb-4 shadow">
+<!-- <button type="button" class="btn btn-lg btn-default w-100 mb-4 shadow">
   Pay
-</button>
+</button> -->
+<ngx-paypal [config]="payPalConfig"></ngx-paypal>

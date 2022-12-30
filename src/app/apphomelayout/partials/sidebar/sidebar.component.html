@@ -74,6 +74,21 @@
           <a
             class="nav-link"
             role="button"
+            routerLink="/menu/booked"
+            (click)="menuclose()"
+          >
+            <div class="avatar avatar-40 rounded icon">
+              <i class="bi bi-person"></i>
+            </div>
+
+            <div class="col">Ticket</div>
+            <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+          </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link"
+            role="button"
             routerLink="/menu/profile"
             (click)="menuclose()"
           >

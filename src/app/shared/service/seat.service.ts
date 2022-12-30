@@ -9,7 +9,10 @@ export class SeatService {
   constructor(private http: HttpClient) {}
 
   getSeat(page?: number) {
-    return this.http.get(`${this.SERVER_URL}/seats/all?pageNumber=${page}`);
+    if (page) {
+      return this.http.get(`${this.SERVER_URL}/seats/all?pageNumber=${page}`);
+    }
+    return this.http.get(`${this.SERVER_URL}/seats/all`);
   }
 
   searchSeat(seat: any) {

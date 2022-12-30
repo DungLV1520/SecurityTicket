@@ -61,7 +61,7 @@
 <button
   type="button"
   class="btn btn-lg btn-default w-100 mb-4 shadow"
-  routerLink="/ticket/booking/hfjhdjfh"
+  (click)="navigateWithState(tripData._id)"
 >
   Book
 </button>
@@ -84,12 +84,18 @@
         </div>
         <div class="col-auto align-self-center text-end ps-0">
           <p class="small mb-1 text-color-theme">PRICE</p>
-          <p>600.000</p>
+          <p>
+            {{
+              (item.type === "VIP" ? tripData.price * 1.2 : tripData.price)
+                | currency : "" : "" : "1.0"
+            }}
+          </p>
         </div>
         <div class="col-auto align-self-center ps-0">
           <button class="btn btn-default btn-44 shadow-sm">
             <input
               type="checkbox"
+              (click)="changeCheckedResultItem($event, item)"
               [disabled]="item.status"
               style="height: 23px; width: 24px; margin-top: 9px"
             />

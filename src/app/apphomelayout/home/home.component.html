@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-12 col-md-8 col-lg-4 mx-auto">
     <div
-      class="accordion accordion-flush rounded-15 shadow-sm card overflow-hidden mb-4"
+      class="accordion accordion-flush rounded-15 shadow-sm card overflow-hidden mb-2"
       id="accordionFlushExample"
     >
       <div class="accordion-item">
@@ -14,7 +14,7 @@
             aria-expanded="true"
             aria-controls="flush-collapseOne"
           >
-            Search ...
+            From
           </button>
         </h2>
         <div
@@ -25,28 +25,80 @@
         >
           <div class="accordion-body text-muted">
             <div class="form-floating is-valid mb-2">
-              <select class="form-control" id="country" [(ngModel)]="from">
-                <option value="{{ item.id }}" *ngFor="let item of provinceData">
-                  {{ item.name }}
-                </option>
-              </select>
-              <label for="country">From</label>
+              <ng-select
+                [items]="provinceData"
+                bindLabel="name"
+                bindValue="id"
+                [(ngModel)]="from"
+              ></ng-select>
             </div>
           </div>
-          <div class="accordion-body text-muted">
-            <div class="form-floating is-valid">
-              <select class="form-control" id="country" [(ngModel)]="to">
-                <option value="{{ item.id }}" *ngFor="let item of provinceData">
-                  {{ item.name }}
-                </option>
-              </select>
-              <label for="country">To</label>
-            </div>
-          </div>
+        </div>
+      </div>
+    </div>
 
-          <div class="accordion-body text-muted mb-4">
-            <div class="form-floating is-valid">
-              <input
+    <div
+      class="accordion accordion-flush rounded-15 shadow-sm card overflow-hidden mb-2"
+      id="accordionFlushExample"
+    >
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingOne">
+          <button
+            class="accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#flush-collapseTwo"
+            aria-expanded="true"
+            aria-controls="flush-collapseTwo"
+          >
+            To
+          </button>
+        </h2>
+        <div
+          id="flush-collapseOne"
+          class="accordion-collapse collapse"
+          aria-labelledby="flush-headingTwo"
+          data-bs-parent="#accordionFlushExample"
+        >
+          <div class="accordion-body text-muted">
+            <div class="form-floating is-valid mb-2">
+              <ng-select
+                [items]="provinceData"
+                bindLabel="name"
+                bindValue="id"
+                [(ngModel)]="to"
+              ></ng-select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="accordion accordion-flush rounded-15 shadow-sm card overflow-hidden mb-2"
+      id="accordionFlushExample"
+    >
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingOne">
+          <button
+            class="accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#flush-collapseTwo"
+            aria-expanded="true"
+            aria-controls="flush-collapseTwo"
+          >
+            Time
+          </button>
+        </h2>
+        <div
+          id="flush-collapseOne"
+          class="accordion-collapse1 collapse"
+          aria-labelledby="flush-headingTwo"
+          data-bs-parent="#accordionFlushExample"
+        >
+          <div class="accordion-body text-muted">
+            <div class="text-muted">
+              <!-- <input
                 class="form-control"
                 placeholder="yyyy-mm-dd"
                 name="dp"
@@ -55,30 +107,30 @@
                 (click)="d1.toggle()"
                 autocomplete="off"
                 [(ngModel)]="startTime"
-                style="margin-bottom: 137px"
-              />
-              <label for="country">To</label>
+              /> -->
+              <ion-datetime [(ngModel)]="startTime"></ion-datetime>
             </div>
-          </div>
-
-          <div class="accordion-body text-muted mt-4" style="float: right">
-            <button
-              type="button"
-              (click)="findTrip()"
-              class="btn btn-md btn-default mb-2 mx-2 shadow"
-            >
-              Find
-            </button>
-            <button
-              (click)="reset()"
-              type="button"
-              class="btn btn-md btn-default mb-2 shadow"
-            >
-              Reset
-            </button>
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="my-2">
+      <button
+        type="button"
+        (click)="findTrip()"
+        class="btn btn-md btn-default mb-2 mx-2 shadow"
+        [disabled]="!from || !to || !startTime"
+      >
+        Find
+      </button>
+      <button
+        (click)="reset()"
+        type="button"
+        class="btn btn-md btn-default mb-2 shadow"
+      >
+        Reset
+      </button>
     </div>
 
     <ion-content style="height: 100vh">

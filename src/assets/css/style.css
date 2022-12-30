@@ -13840,3 +13840,7 @@ a.card {
   color: var(--fimobile-theme-text);
   background-color: var(--fimobile-theme-color);
 }
+
+.accordion-collapse1{
+  height: 325px
+}

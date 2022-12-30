@@ -10,6 +10,7 @@ import { FooterinfoComponent } from './partials/footerinfo/footerinfo.component'
 import { HeaderbackComponent } from './partials/headerback/headerback.component';
 import { AppinnerlayoutRoutingModule } from './appinner-routing.module';
 import { TicketBookingComponent } from './ticket-booking/ticket-booking.component';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { TicketBookingComponent } from './ticket-booking/ticket-booking.componen
     AppinnerlayoutRoutingModule,
     SwiperModule,
     NgCircleProgressModule.forRoot(),
+    NgxPayPalModule,
   ],
 })
 export class AppInnerLayoutModule {}

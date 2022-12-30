@@ -9,7 +9,12 @@ export class VehicleService {
   constructor(private http: HttpClient) {}
 
   getVehicle(page?: number) {
-    return this.http.get(`${this.SERVER_URL}/vehicles/all?pageNumber=${page}`);
+    if (page) {
+      return this.http.get(
+        `${this.SERVER_URL}/vehicles/all?pageNumber=${page}`
+      );
+    }
+    return this.http.get(`${this.SERVER_URL}/vehicles/all`);
   }
 
   getVehicleSeatID(id?: string) {

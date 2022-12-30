@@ -10,12 +10,17 @@ export class CompanyService {
   constructor(private http: HttpClient) {}
 
   getCompany(page?: number): Observable<HttpResponse<any>> {
-    return this.http.get(
-      `${this.SERVER_URL}/companies/client?pageNumber=${page}`,
-      {
-        observe: 'response',
-      }
-    );
+    if (page) {
+      return this.http.get(
+        `${this.SERVER_URL}/companies/client?pageNumber=${page}`,
+        {
+          observe: 'response',
+        }
+      );
+    }
+    return this.http.get(`${this.SERVER_URL}/companies/client`, {
+      observe: 'response',
+    });
   }
 
   createCompany(companies: any): Observable<HttpResponse<any>> {
