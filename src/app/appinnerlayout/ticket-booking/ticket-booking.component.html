@@ -104,7 +104,34 @@
     </div>
   </div>
 </div>
-<!-- <button type="button" class="btn btn-lg btn-default w-100 mb-4 shadow">
+<button
+  type="button"
+  (click)="show()"
+  *ngIf="acceptPayBtn"
+  class="btn btn-lg btn-default w-100 mb-4 shadow"
+>
   Pay
-</button> -->
-<ngx-paypal [config]="payPalConfig"></ngx-paypal>
+</button>
+
+<ngx-paypal [config]="payPalConfig" *ngIf="acceptPay"></ngx-paypal>
+
+<ng-template #modal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Booking</h5>
+    <button type="button" class="close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Nhập password:</p>
+    <input type="text" class="form-control" [(ngModel)]="password" />
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="cancelClick()">
+      Close
+    </button>
+    <button type="button" class="btn btn-primary" (click)="okClicked()">
+      Pay
+    </button>
+  </div>
+</ng-template>

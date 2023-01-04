@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs';
 import { AuthService } from '../auth.service';
+import { CryptoService } from '../../../shared/service/crypto.service';
+import { StorageService } from '../../../shared/service/storage.service';
 
 @Component({
   selector: 'app-signin',
@@ -22,7 +24,9 @@ export class SigninComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private cryptoService: CryptoService,
+    private storageService: StorageService
   ) {}
 
   ngOnInit() {
@@ -51,9 +55,12 @@ export class SigninComponent implements OnInit {
         )
         .pipe(first())
         .subscribe(
-          () => {
+          (data: any) => {
             this.router.navigate(['/menu/home']);
             this.loading = false;
+            this.cryptoService.hashSHA256(data.token);
+            this.storageService.storePublicKey(data.publicKey);
+            this.storageService.storeClientId(data.id);
           },
           (error) => {
             this.error = error ? error : '';
@@ -67,5 +74,16 @@ export class SigninComponent implements OnInit {
           }
         );
     }
+  }
+
+  en(): void {
+    this.cryptoService.encrypt('SuperSecret', 'madukkarai');
+  }
+
+  de(): void {
+    this.cryptoService.decript(
+      this.cryptoService.encrypt('SuperSecret', 'madukkarai'),
+      'madukkarai'
+    );
   }
 }

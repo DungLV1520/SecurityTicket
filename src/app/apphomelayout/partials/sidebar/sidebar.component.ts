@@ -27,6 +27,8 @@ export class SidebarComponent implements OnInit {
 
   getProfile(): void {
     this.authService.getProfile().subscribe((data) => {
+      // const privateKey = this.storageService.retrieve();
+      // const decrypt = this.cryptoService.decript('', privateKey);
       this.account = data;
     });
   }

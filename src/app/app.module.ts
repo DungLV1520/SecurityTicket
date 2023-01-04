@@ -8,7 +8,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './core/helpers/jwt.interceptor';
 import { ErrorInterceptor } from './core/helpers/error.interceptor';
 import { NgxPayPalModule } from 'ngx-paypal';
-
+import { NgxWebstorageModule } from 'ngx-webstorage';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -17,6 +17,7 @@ import { NgxPayPalModule } from 'ngx-paypal';
     AppRoutingModule,
     HttpClientModule,
     NgxPayPalModule,
+    NgxWebstorageModule.forRoot(),
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

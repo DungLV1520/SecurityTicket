@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { IonModal, ToastController } from '@ionic/angular';
 import { ICreateOrderRequest } from 'ngx-paypal';
 import { province } from 'src/app/apphomelayout/province';
 import { Payment } from 'src/app/shared/model/payment.model';
@@ -9,6 +9,9 @@ import { LoaderService } from 'src/app/shared/service/loader.service';
 import { SeatService } from 'src/app/shared/service/seat.service';
 import { TicketService } from 'src/app/shared/service/ticket.service';
 import { TripService } from 'src/app/shared/service/trip.service';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { CryptoService } from 'src/app/shared/service/crypto.service';
+import { AuthService } from 'src/app/account/auth/auth.service';
 
 @Component({
   selector: 'app-ticket-booking',
@@ -32,6 +35,8 @@ export class TicketBookingComponent implements OnInit {
   checkCreateError = false;
   checkCreateErrorPayPal = false;
   checkCreateCancel = false;
+  password?: string;
+  account: any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -41,7 +46,10 @@ export class TicketBookingComponent implements OnInit {
     private companyService: CompanyService,
     private ticketService: TicketService,
     private toastController: ToastController,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private modalService: NgbModal,
+    private cryptoService: CryptoService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -219,5 +227,47 @@ export class TicketBookingComponent implements OnInit {
     });
 
     await toast.present();
+  }
+
+  @ViewChild('modal') modal!: TemplateRef<any>;
+
+  show(): void {
+    const options: NgbModalOptions = {
+      size: 'md',
+      centered: true,
+    };
+    this.modalService.open(this.modal, options);
+  }
+
+  cancelClick(): void {
+    this.modalService.dismissAll();
+  }
+  acceptPay = false;
+  acceptPayBtn = true;
+  okClicked(): void {
+    this.cryptoService.verifyPass(this.password).subscribe(
+      (data) => {
+        this.modalService.dismissAll();
+        const publicKey = '';
+        const clientId = '';
+        this.cryptoService
+          .pushPublicKeyandData(publicKey, clientId)
+          .subscribe((data) => {
+            if (data) {
+              this.acceptPay = true;
+              this.acceptPayBtn = false;
+            }
+          });
+      },
+      (err) => {
+        this.presentToast('bottom', 'Password failed!!!');
+      }
+    );
+  }
+
+  getProfile(): void {
+    this.authService.getProfile().subscribe((data) => {
+      this.account = data;
+    });
   }
 }

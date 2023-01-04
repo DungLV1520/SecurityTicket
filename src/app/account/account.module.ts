@@ -5,6 +5,7 @@ import { AccountRoutingModule } from './account-routing.module';
 import { AuthModule } from './auth/auth.module';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
+import { StorageService } from '../shared/service/storage.service';
 
 @NgModule({
   declarations: [],

@@ -12,13 +12,13 @@ export class CompanyService {
   getCompany(page?: number): Observable<HttpResponse<any>> {
     if (page) {
       return this.http.get(
-        `${this.SERVER_URL}/companies/client?pageNumber=${page}`,
+        `${this.SERVER_URL}/companies/all?pageNumber=${page}`,
         {
           observe: 'response',
         }
       );
     }
-    return this.http.get(`${this.SERVER_URL}/companies/client`, {
+    return this.http.get(`${this.SERVER_URL}/companies/all`, {
       observe: 'response',
     });
   }

@@ -11,6 +11,8 @@ import { InfiniteScrollCustomEvent } from '@ionic/angular';
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 import * as moment from 'moment';
 import { LoaderService } from 'src/app/shared/service/loader.service';
+import { CryptoService } from 'src/app/shared/service/crypto.service';
+import { StorageService } from 'src/app/shared/service/storage.service';
 
 @Component({
   selector: 'app-home',
@@ -30,7 +32,9 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private tripService: TripService,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private cryptoService: CryptoService,
+    private storageService: StorageService
   ) {}
 
   ngOnInit(): void {
@@ -42,13 +46,13 @@ export class HomeComponent implements OnInit {
     this.provinceData = province;
   }
 
-  ngAfterInit() {}
-
   loadTrip(count: number) {
     this.loaderService.showLoading(true);
 
     this.tripService.getTrip(count).subscribe(
       (data: any) => {
+        // const privateKey = this.storageService.retrieve();
+        // const decrypt = this.cryptoService.decript('', privateKey);
         this.tripData = [
           ...this.tripData,
           ...this.getUniqueListBy(data.trips, '_id'),
@@ -73,6 +77,8 @@ export class HomeComponent implements OnInit {
       to: this.to,
       startTime: moment(this.startTime).format('YYYY/MM/DD'),
     };
+    // const privateKey = this.storageService.retrieve();
+    // const encrypt = this.cryptoService.encrypt(obj.toString(), privateKey);
 
     this.tripService.searchTrip(obj).subscribe((data: any) => {
       this.tripData = data?.filterd;
